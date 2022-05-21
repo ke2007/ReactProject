@@ -8,29 +8,28 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    function Title() {
+    function App() {
+      const [minutes, setMinutes] = React.useState();
+      const onChange = (event) => {
+        setMinutes(event.target.value);
+      };
       return (
-        <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
-          Hello i'm a title
-        </h3>
+        <div>
+          <h1>Super Converter</h1>
+          <label for="minutes">Minutes</label>
+          <input
+            value={minutes}
+            id="minutes"
+            placehoder="Minutes"
+            type="number"
+            onChange={onChange}
+          />
+          <h4> You want to convert {minutes}</h4>
+          <label for="hours">Hours</label>
+          <input id="hours" placehoder="Hours" type="number" />
+        </div>
       );
     }
-
-    const Button = () => (
-      <button
-        style={{ backgroundColor: "tomato" }}
-        onClick={() => console.log("i'm clicked")}
-      >
-        Click me
-      </button>
-    );
-
-    const Container = (
-      <div>
-        <Title /> //컴포넌트의 첫글자는 대문자여야한다
-        <Button />
-      </div>
-    );
-    ReactDOM.render(Container, root); //render - span 을 root안에 render 해주세용
+    ReactDOM.render(<App />, root); // root안에 render 해주세
   </script>
 </html>
