@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+    function MinutesToHours() {
+      const [amount, setAmount] = React.useState(0);
+
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount(0);
+      const [inverted, setInverted] = React.useState(false);
+      const onInvert = () => setInverted((current) => !current);
+      return (
+        <div>
+          <label for="minutes">Minutes</label>
+          <div>
+            <input
+              value={inverted ? amount * 60 : amount} //fliepped 라면? amount *60
+              id="minutes"
+              placehoder="Minutes"
+              type="number"
+              disabled={inverted}
+              onChange={onChange}
+            />
+          </div>
+
+          <div>
+            <label for="hours">Hours</label>
+            <div>
+              <input
+                value={inverted ? amount : Math.round(amount / 60)} //삼항연산자 if문을 라인에 쓰는거 inverted일 경우 amount값을 그대로 보여주고 , 아닐경우 나누기60한 값을 보여줌
+                placehoder="Hours"
+                type="number"
+                disabled={!inverted}
+                onChange={onChange}
+              />
+            </div>
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onInvert}>
+            {inverted ? "Turn back" : "Invert"}
+          </button>
+        </div>
+      );
+    }
+    function KmtoMiles() {
+      const [amount1, setAmount1] = React.useState(0);
+
+      const onChange1 = (event1) => {
+        setAmount1(event1.target.value);
+      };
+      const reset1 = () => setAmount1(0);
+      const [inverted1, setInverted1] = React.useState(false);
+      const onInvert1 = () => setInverted1((current) => !current);
+      return (
+        <div>
+          <label for="Km">Km</label>
+          <div>
+            <input
+              value={inverted1 ? amount1 * 1.609 : amount1} //fliepped 라면? amount *60
+              id="Km"
+              placehoder="Km"
+              type="number"
+              disabled={inverted1}
+              onChange={onChange1}
+            />
+          </div>
+
+          <div>
+            <label for="Miles">Miles </label>
+            <div>
+              <input
+                value={
+                  inverted1
+                    ? amount1
+                    : Math.round(((amount1 / 1.609) * 100) / 100.0)
+                } //삼항연산자 if문을 라인에 쓰는거 inverted일 경우 amount값을 그대로 보여주고 , 아닐경우 나누기60한 값을 보여줌
+                placehoder="Miles"
+                type="number"
+                disabled={!inverted1}
+                onChange={onChange1}
+              />
+            </div>
+          </div>
+          <button onClick={reset1}>Reset</button>
+          <button onClick={onInvert1}>
+            {inverted1 ? "Turn back" : "Invert"}
+          </button>
+        </div>
+      );
+    }
+    function App() {
+      const [index, seIndex] = React.useState("0");
+      const onSelect = (event) => {
+        seIndex(event.target.value);
+      };
+      return (
+        <div>
+          <h1>Super Converter</h1>
+          <select value={index} onChange={onSelect}>
+            <option value="0">Minutes & Hours</option>
+            <option value="1">Km & Miles</option>
+          </select>
+          <hr />
+          {index === "0" ? <MinutesToHours /> : null}
+          {index === "1" ? <KmtoMiles /> : null}
+        </div>
+      );
+    }
+    ReactDOM.render(<App />, root); // root안에 render 해주세
+  </script>
+</html>
