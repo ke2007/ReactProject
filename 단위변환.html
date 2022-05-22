@@ -10,39 +10,42 @@
     const root = document.getElementById("root");
     function App() {
       const [amount, setAmount] = React.useState(0);
-      const [flipped, setFlipped] = React.useState(false);
+
       const onChange = (event) => {
         setAmount(event.target.value);
       };
       const reset = () => setAmount(0);
-      const onFlip = () => setFlipped((current) => !current);
+      const [inverted, setInverted] = React.useState(false);
+      const onInvert = () => setInverted((current) => !current);
       return (
         <div>
           <h1>Super Converter</h1>
           <label for="minutes">Minutes</label>
           <div>
             <input
-              value={flipped ? amount * 60 : amount}
+              value={inverted ? amount * 60 : amount} //fliepped 라면? amount *60
               id="minutes"
               placehoder="Minutes"
               type="number"
+              disabled={inverted}
               onChange={onChange}
-              disabled={flipped}
             />
           </div>
 
           <div>
             <label for="hours">Hours</label>
             <input
-              value={flipped ? amount : Math.round(amount / 60)} //삼항연산자 if문을 라인에 쓰는거 flipped일 경우 amount값을 그대로 보여주고 , 아닐경우 나누기60한 값을 보여줌
+              value={inverted ? amount : Math.round(amount / 60)} //삼항연산자 if문을 라인에 쓰는거 inverted일 경우 amount값을 그대로 보여주고 , 아닐경우 나누기60한 값을 보여줌
               placehoder="Hours"
               type="number"
+              disabled={!inverted}
               onChange={onChange}
-              disabled={!flipped}
             />
           </div>
           <button onClick={reset}>Reset</button>
-          <button onClick={onFlip}>Flip</button>
+          <button onClick={onInvert}>
+            {inverted ? "Turn back" : "Invert"}
+          </button>
         </div>
       );
     }
