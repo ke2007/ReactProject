@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function Btn({ text, onClick }) {
+      return (
+        <button
+          onClick={onClick}
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 10,
+            borderRadius: 10,
+            fontSize: 16,
+          }}
+        >
+          {text}
+        </button>
+      );
+    }
+    function App() {
+      const [value, setValue] = React.useState("Save Changes");
+      const ChangeValue = () => setValue("Revert Changes");
+      return (
+        <div>
+          <Btn text={value} onClick={ChangeValue} />
+          <Btn text="Countinue" />
+        </div> //자기가 만든 컴포넌트(ex.Btn)의 onClick은 그저 하나의 prop이다, 다른이름이 될수도있음 html요소에 넣는다면 그게 이벤트리스너 다.
+      );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root); // root안에 render 해주세
+  </script>
+</html>
